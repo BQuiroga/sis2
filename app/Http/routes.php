@@ -13,8 +13,9 @@
 
 Route::get('/', 'WelcomeController@index');
 Route::get('/movies/like/{id}', 'MoviesController@like');
-Route::patch('/movies/rating/{id}','MoviesController@rating');
+Route::get('/movies/rating/{id}','MoviesController@rating');
 Route::get('home', 'HomeController@index');
+Route::resource('ratings','RatingsController');
 Route::resource('reviews','ReviewsController');
 Route::resource('movies','MoviesController');
 

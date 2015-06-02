@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Review;
 use App\Http\Controllers\Controller;
 use Request;
+use Auth;
 
 class ReviewsController extends Controller {
 
@@ -35,7 +36,8 @@ class ReviewsController extends Controller {
 	public function store(Request $request)
 	{
 		$input = $request::all();
-		Review::create($input);
+		$review=new Review($input);
+		Auth::user()->reviews()->save($review);
 		return redirect('movies');
 	}
 

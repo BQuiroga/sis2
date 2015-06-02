@@ -31,8 +31,8 @@ class MoviesController extends Controller {
 		$movie = Movie::find($id);
 		$rating=new Rating();
 		$rating->movie_id=$movie->id;
-		$rating->user_id=Auth::user()->id;
-		$movie->rating += $rating->value;
+		$rating->user_id=$movie->user->id;
+		$movie->rating += 5;
 		$rating->save();
 		return redirect('movies');
 	}
@@ -61,7 +61,10 @@ class MoviesController extends Controller {
 	{
 		$input = $request->all();
 		$movie = new Movie($input);
-		Auth::user()->movies()->save($movie);
+		//Auth::user()->movies()->save($movie);
+
+		if(Auth::user())
+			Movie::create($input);
 		return redirect('movies');
 	}
 

@@ -2,9 +2,10 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-
+use Request;
+use App\Http\Requests\RatingRequest;
+use App\Rating;
+use Auth;
 class RatingsController extends Controller {
 
 	/**
@@ -32,11 +33,15 @@ class RatingsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(RatingRequest $request)
 	{
-		//
+		$input = $request->all();
+		$movie = new Rating($input);
+		//Auth::user()->movies()->save($movie);
+		if(Auth::user())
+			Rating::create($input);
+		return redirect('movies');
 	}
-
 	/**
 	 * Display the specified resource.
 	 *
